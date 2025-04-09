@@ -1,0 +1,152 @@
+/* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  color: #333;
+  line-height: 1.6;
+}
+
+header {
+  background-color: #2d89ef;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+nav {
+  background-color: #222;
+  text-align: center;
+  padding: 10px 0;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 15px;
+  font-size: 1rem;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+h2 {
+  margin-bottom: 15px;
+  color: #2d89ef;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 1rem;
+}
+
+.form-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.form-flex .form-group {
+  flex: 1;
+}
+
+.button {
+  padding: 10px 20px;
+  background-color: #2d89ef;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  border-radius: 3px;
+  cursor: pointer;
+  text-decoration: none; /* For anchor styling */
+  display: inline-block; /* Ensures button-like appearance for links */
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #1b5fa7;
+}
+
+/* Action Buttons Container */
+.action-buttons {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.action-buttons .button {
+  margin: 0 10px;
+}
+
+/* Tasks Section */
+.task-item {
+  padding: 15px 0;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 15px;
+}
+
+.task-item:last-child {
+  border-bottom: none;
+}
+
+.task-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.progress-bar {
+  background-color: #eee;
+  border-radius: 5px;
+  overflow: hidden;
+  height: 20px;
+  margin-top: 5px;
+}
+
+.progress {
+  height: 100%;
+  background-color: #2d89ef;
+  width: 0%;
+}
+
+footer {
+  background-color: #222;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+@media (max-width: 600px) {
+  .form-flex {
+    flex-direction: column;
+  }
+}

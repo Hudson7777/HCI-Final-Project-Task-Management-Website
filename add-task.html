@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Deadline Savior - Add Task</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Header Section -->
+  <header>
+    <h1>Deadline Savior</h1>
+    <p>Add a New Task</p>
+  </header>
+
+  <!-- Main Container -->
+  <div class="container">
+    <section id="add-task">
+      <h2>Add New Task</h2>
+      <form>
+        <div class="form-group">
+          <label for="task-title">Task Title</label>
+          <input type="text" id="task-title" name="task-title" placeholder="Enter task title">
+        </div>
+        <div class="form-flex">
+          <div class="form-group">
+            <label for="deadline">Deadline</label>
+            <input type="datetime-local" id="deadline" name="deadline">
+          </div>
+          <div class="form-group">
+            <label for="task-type">Type</label>
+            <select id="task-type" name="task-type">
+              <option value="">Select type</option>
+              <option value="study">Study</option>
+              <option value="work">Work</option>
+              <option value="personal">Personal</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-flex">
+          <div class="form-group">
+            <label for="difficulty">Difficulty Level</label>
+            <select id="difficulty" name="difficulty">
+              <option value="">Select difficulty</option>
+              <option value="easy">Easy</option>
+              <option value="medium">Medium</option>
+              <option value="hard">Hard</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="importance">Importance</label>
+            <select id="importance" name="importance">
+              <option value="">Select importance</option>
+              <option value="low">Low</option>
+              <option value="normal">Normal</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="description">Task Description</label>
+          <textarea id="description" name="description" rows="4" placeholder="Enter task details"></textarea>
+        </div>
+        <button type="submit" class="button">Add Task</button>
+      </form>
+    </section>
+  </div>
+
+  <!-- Footer Section -->
+  <footer>
+    <p>&copy; 2025 Deadline Savior. Developed by Haoran Xu and Xintong Zhang.</p>
+  </footer>
+</body>
+</html>
