@@ -280,7 +280,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
 
       try {
-        const response = await fetch("https://你的-vercel-url.vercel.app/api/optimize-tasks", {
+        const response = await fetch("https://hci-final-project-task-management-website.vercel.app/", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ tasks })
