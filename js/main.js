@@ -184,7 +184,7 @@ document.addEventListener("DOMContentLoaded", () => {
       taskContainer.appendChild(emptyMsg);
     } else {
       // Sort tasks by deadline (nearest first)
-      taskList.sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
+      // taskList.sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
 
       // Create and append task elements
       taskList.forEach((task, index) => {
