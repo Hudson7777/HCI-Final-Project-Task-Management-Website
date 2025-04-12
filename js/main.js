@@ -1,3 +1,33 @@
+function getImportanceValue(level) {
+  switch (level) {
+    case "low": return 1;
+    case "normal": return 2;
+    case "high": return 3;
+    default: return 2;
+  }
+}
+
+function getDifficultyValue(level) {
+  switch (level) {
+    case "easy": return 1;
+    case "medium": return 2;
+    case "hard": return 3;
+    default: return 2;
+  }
+}
+
+function scoreTask(task) {
+  const today = new Date();
+  const deadline = new Date(task.deadline);
+  const daysUntilDeadline = Math.max(0, Math.floor((deadline - today) / (1000 * 60 * 60 * 24)));
+
+  const importanceScore = getImportanceValue(task.importance);
+  const difficultyScore = getDifficultyValue(task.difficulty);
+  const progressScore = (100 - (parseInt(task.progress) || 0)) / 20;
+
+  const score = (10 / (daysUntilDeadline + 1)) + (importanceScore * 3) + (difficultyScore) + progressScore;
+  return score;
+}
 document.addEventListener("DOMContentLoaded", () => {
   const taskForm = document.getElementById("task-form");
   const taskContainer = document.getElementById("tasks");
@@ -295,7 +325,11 @@ document.addEventListener("DOMContentLoaded", () => {
           data.tasks.length > 0 &&
           data.tasks.every(task => task.title && task.deadline)
         ) {
-          localStorage.setItem("tasks", JSON.stringify(data.tasks));
+          // sort the tasks based on scores(replaced from GPT)
+          const sorted = data.tasks.sort((a, b) => scoreTask(b) - scoreTask(a));
+
+          // save sorted tasks
+          localStorage.setItem("tasks", JSON.stringify(sorted));
           alert("Tasks sorted! Refresh the page to see new order.");
         } else {
           alert("⚠️ AI returned invalid task data. Sorting skipped.");
