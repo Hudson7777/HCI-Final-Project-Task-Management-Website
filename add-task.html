@@ -6,31 +6,35 @@
   <title>Deadline Savior - Add Task</title>
   <link rel="stylesheet" href="css/styles.css">
 </head>
-<script src="js/main.js"></script>
 <body>
   <!-- Header Section -->
   <header>
     <h1>Deadline Savior</h1>
     <p>Add a New Task</p>
   </header>
+  
+  <!-- Navigation -->
+  <div class="action-buttons">
+    <a href="index.html" class="button">Back to Tasks</a>
+  </div>
 
   <!-- Main Container -->
   <div class="container">
     <section id="add-task">
       <h2>Add New Task</h2>
-      <form>
+      <form id="task-form">
         <div class="form-group">
           <label for="task-title">Task Title</label>
-          <input type="text" id="task-title" name="task-title" placeholder="Enter task title">
+          <input type="text" id="task-title" name="task-title" placeholder="Enter task title" required>
         </div>
         <div class="form-flex">
           <div class="form-group">
             <label for="deadline">Deadline</label>
-            <input type="datetime-local" id="deadline" name="deadline">
+            <input type="datetime-local" id="deadline" name="deadline" required>
           </div>
           <div class="form-group">
             <label for="task-type">Type</label>
-            <select id="task-type" name="task-type">
+            <select id="task-type" name="task-type" required>
               <option value="">Select type</option>
               <option value="study">Study</option>
               <option value="work">Work</option>
@@ -41,7 +45,7 @@
         <div class="form-flex">
           <div class="form-group">
             <label for="difficulty">Difficulty Level</label>
-            <select id="difficulty" name="difficulty">
+            <select id="difficulty" name="difficulty" required>
               <option value="">Select difficulty</option>
               <option value="easy">Easy</option>
               <option value="medium">Medium</option>
@@ -50,7 +54,7 @@
           </div>
           <div class="form-group">
             <label for="importance">Importance</label>
-            <select id="importance" name="importance">
+            <select id="importance" name="importance" required>
               <option value="">Select importance</option>
               <option value="low">Low</option>
               <option value="normal">Normal</option>
@@ -62,14 +66,16 @@
           <label for="description">Task Description</label>
           <textarea id="description" name="description" rows="4" placeholder="Enter task details"></textarea>
         </div>
-        <button type="submit" class="button">Add Task</button>
+        <button type="submit" class="button" id="submit-btn">Add Task</button>
       </form>
     </section>
   </div>
 
   <!-- Footer Section -->
   <footer>
-    <p>&copy; 2025 Deadline Savior. Developed by Haoran Xu and Xintong Zhang.</p>
+    <p>&copy; 2025 Deadline Savior. Developed by Haoran Xu, Xintong Zhang, Min Sun, Suchita Sharma.</p>
   </footer>
+  
+  <script src="js/main.js"></script>
 </body>
 </html>
