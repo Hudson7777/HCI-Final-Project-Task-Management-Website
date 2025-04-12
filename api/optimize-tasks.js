@@ -28,34 +28,65 @@ Your job is to:
 Input:
 ${JSON.stringify(tasks)}
 
-Return:
+Return ONLY the JSON array. No explanation, no markdown, no extra text.
+
+Example of correct output:
 [
-  { ...task1... },
-  { ...task2... },
+  { "title": "Task A", "deadline": "...", ... },
   ...
 ]
 `;
 
-  try {
-    const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`
-      },
-      body: JSON.stringify({
-        model: "gpt-4o",
-        messages: [{ role: "user", content: prompt }],
-        temperature: 0.3
-      })
-    });
+try {
+  const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`
+    },
+    body: JSON.stringify({
+      model: "gpt-4o",
+      messages: [{ role: "user", content: prompt }],
+      temperature: 0.3
+    })
+  });
 
-    const json = await openaiRes.json();
-    const sorted = JSON.parse(json.choices[0].message.content);
-    res.status(200).json({ tasks: sorted });
+  const rawText = openaiRes.status === 200 ? (await openaiRes.json()).choices[0].message.content : null;
 
-  } catch (e) {
-    console.error("Error from OpenAI:", e);
-    res.status(500).json({ error: e.message });
+  if (!rawText) {
+    return res.status(500).json({ error: "No content returned from GPT." });
   }
+
+  // get the first JSON array
+  const jsonStart = rawText.indexOf('[');
+  const jsonEnd = rawText.lastIndexOf(']');
+  if (jsonStart === -1 || jsonEnd === -1) {
+    throw new Error("Could not find JSON array in GPT response.");
+  }
+
+  const jsonText = rawText.slice(jsonStart, jsonEnd + 1);
+  let sorted;
+
+  try {
+    sorted = JSON.parse(jsonText);
+  } catch (e) {
+    throw new Error("GPT response could not be parsed into JSON.");
+  }
+
+  // check whether the output format is correct
+  if (
+    !Array.isArray(sorted) ||
+    !sorted[0] ||
+    typeof sorted[0] !== 'object' ||
+    !sorted[0].title ||
+    !sorted[0].deadline
+  ) {
+    throw new Error("GPT response is not a valid task list.");
+  }
+
+  res.status(200).json({ tasks: sorted });
+} catch (e) {
+  console.error("Error from OpenAI:", e);
+  res.status(500).json({ error: e.message });
+}
 }
