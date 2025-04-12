@@ -287,6 +287,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
   
         const data = await response.json();
+        console.log("Return output from GPT", data.tasks);
   
         // check if valid
         if (
