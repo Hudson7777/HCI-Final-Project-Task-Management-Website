@@ -278,17 +278,29 @@ document.addEventListener("DOMContentLoaded", () => {
   if (optimizeBtn) {
     optimizeBtn.addEventListener("click", async () => {
       const tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
-
+  
       try {
         const response = await fetch("https://hci-final-project-task-management-website.vercel.app/api/optimize-tasks", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ tasks })
         });
-
+  
         const data = await response.json();
-        localStorage.setItem("tasks", JSON.stringify(data.tasks));
-        alert("Tasks sorted! Refresh the page to see new order.");
+  
+        // check if valid
+        if (
+          Array.isArray(data.tasks) &&
+          data.tasks.length > 0 &&
+          data.tasks.every(task => task.title && task.deadline)
+        ) {
+          localStorage.setItem("tasks", JSON.stringify(data.tasks));
+          alert("Tasks sorted! Refresh the page to see new order.");
+        } else {
+          alert("⚠️ AI returned invalid task data. Sorting skipped.");
+          console.error("Invalid GPT response:", data);
+        }
+  
       } catch (err) {
         console.error("API error:", err);
         alert("Failed to sort tasks. Check console for details.");

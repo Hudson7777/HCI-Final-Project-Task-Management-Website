@@ -10,17 +10,30 @@ export default async function handler(req, res) {
   }
 
   const prompt = `
-You are an intelligent scheduling assistant. Given a list of tasks with properties like deadline, importance, and difficulty, reorder them from highest to lowest priority.
+You are a task prioritization assistant.
 
-Consider the following rules:
-- A task with a closer deadline should be prioritized.
-- A task with higher importance should come earlier.
-- For tasks with similar deadlines and importance, higher difficulty can raise its priority slightly.
+You will be given a list of tasks in JSON format. Each task contains the following fields: title, deadline, type, importance, difficulty, description, and progress.
 
-Please return a JSON array of tasks in new priority order. Do NOT add explanations or suggestions. Do not change any task content.
+Your job is to:
+1. Reorder the tasks from highest to lowest priority.
+2. Priority should be based on:
+   - Sooner deadline → higher priority
+   - Higher importance → higher priority
+   - For tasks with similar deadlines and importance, higher difficulty gets higher priority.
 
-Tasks:
+⚠️ IMPORTANT: Do not change any field.
+⚠️ Output ONLY a valid JSON array of tasks, with the same fields and structure as the input.
+⚠️ Do NOT add any explanation, comment, markdown, or intro. Output pure JSON only.
+
+Input:
 ${JSON.stringify(tasks)}
+
+Return:
+[
+  { ...task1... },
+  { ...task2... },
+  ...
+]
 `;
 
   try {
