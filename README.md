@@ -2,7 +2,7 @@
 
 A user-friendly task management platform built for our Human-Computer Interaction (HCI) final project. The website helps users manage daily tasks while optimizing schedules using the OpenAI API for smart task recommendations.
 
-## Overview
+## Overview 
 
 This web application provides a user-friendly interface for managing tasks, setting priorities, tracking deadlines, and receiving AI-driven recommendations to optimize productivity. It incorporates principles of HCI to ensure accessibility, usability, and intuitive user interaction.
 
