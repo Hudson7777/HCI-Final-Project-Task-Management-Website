@@ -328,9 +328,71 @@ document.addEventListener("DOMContentLoaded", () => {
           // sort the tasks based on scores(replaced from GPT)
           const sorted = data.tasks.sort((a, b) => scoreTask(b) - scoreTask(a));
 
-          // save sorted tasks
+          // modify the refresh logic, to get a more elegant UI effect
           localStorage.setItem("tasks", JSON.stringify(sorted));
-          alert("Tasks sorted! Refresh the page to see new order.");
+          if (taskContainer) {
+            // add an extra space
+            let loadingIndicator = document.getElementById("loading-indicator");
+            let statusMessage = document.getElementById("status-message");
+
+            if (!loadingIndicator) {
+              loadingIndicator = document.createElement("div");
+              loadingIndicator.id = "loading-indicator";
+              loadingIndicator.style.color = "#666";
+              loadingIndicator.style.marginTop = "10px";
+              optimizeBtn.insertAdjacentElement("afterend", loadingIndicator);
+            }
+
+            if (!statusMessage) {
+              statusMessage = document.createElement("div");
+              statusMessage.id = "status-message";
+              statusMessage.style.display = "none";
+              statusMessage.style.marginTop = "10px";
+              statusMessage.style.padding = "10px";
+              statusMessage.style.borderRadius = "5px";
+              statusMessage.style.fontWeight = "bold";
+              optimizeBtn.insertAdjacentElement("afterend", statusMessage);
+            }
+
+            // show the loading animation
+            loadingIndicator.textContent = "🔄 Optimizing tasks with GPT...";
+            loadingIndicator.style.display = "block";
+            statusMessage.style.display = "none";
+
+            if (taskContainer) {
+              taskContainer.innerHTML = "<h2>Upcoming Tasks</h2>"; 
+
+              sorted.forEach((task, index) => {
+                const deadlineDate = new Date(task.deadline);
+                const formattedDate = deadlineDate.toLocaleDateString();
+                const formattedTime = deadlineDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                const progress = task.progress || 0;
+
+                const taskDiv = document.createElement("div");
+                taskDiv.className = "task-item";
+                taskDiv.innerHTML = `
+                  <a href="task-details.html?id=${index}" class="task-title">${task.title}</a>
+                  <div>Deadline: ${formattedDate} at ${formattedTime}</div>
+                  <div>Type: ${task.type} | Importance: ${task.importance} | Difficulty: ${task.difficulty}</div>
+                  <div>${getTimeRemaining(task.deadline)}</div>
+                  <div class="progress-bar">
+                    <div class="progress" style="width: ${progress}%;"></div>
+                  </div>
+                  <div>${progress}% completed</div>
+                `;
+
+                taskContainer.appendChild(taskDiv);
+              });
+
+              // show a green button for successful loading
+              loadingIndicator.style.display = "none";
+              statusMessage.textContent = "✅ Tasks sorted by GPT!";
+              statusMessage.style.backgroundColor = "#d4edda";
+              statusMessage.style.color = "#155724";
+              statusMessage.style.border = "1px solid #c3e6cb";
+              statusMessage.style.display = "block";
+            }
+          }
         } else {
           alert("⚠️ AI returned invalid task data. Sorting skipped.");
           console.error("Invalid GPT response:", data);
