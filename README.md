@@ -36,7 +36,7 @@ From our user research:
 
 ## Demo
 
-[link]
+https://hci-final-project-task-management-website.vercel.app/
 
 ## Project Structure
 <img width="602" alt="Screenshot 2025-04-15 at 08 40 50" src="https://github.com/user-attachments/assets/12de86bc-f635-45de-8dbf-db413653cfe9" />
