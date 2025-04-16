@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Deadline Savior - Task Details</title>
   <link rel="stylesheet" href="css/styles.css">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
   <!-- Header Section -->
@@ -15,9 +17,9 @@
 
   <!-- Navigation for Task Details -->
   <div class="task-nav action-buttons">
-    <a href="index.html" class="button">Back to Tasks</a>
-    <a href="#" id="edit-task-link" class="button">Edit Task</a>
-    <button id="delete-task" class="button" style="background-color: #d9534f;">Delete Task</button>
+    <a href="index.html" class="button"><i class="fas fa-arrow-left"></i> Back to Tasks</a>
+    <a href="#" id="edit-task-link" class="button"><i class="fas fa-edit"></i> Edit Task</a>
+    <button id="delete-task" class="button" style="background-color: #d9534f;"><i class="fas fa-trash"></i> Delete Task</button>
   </div>
 
   <!-- Main Container for Task Details -->
@@ -25,39 +27,36 @@
     <!-- Task General Information Section -->
     <section class="task-info">
       <h2 id="task-title">Loading task...</h2>
-      <p><strong>Deadline:</strong> <span id="task-deadline">-</span></p>
-      <p><strong>Type:</strong> <span id="task-type">-</span></p>
-      <p><strong>Difficulty:</strong> <span id="task-difficulty">-</span></p>
-      <p><strong>Importance:</strong> <span id="task-importance">-</span></p>
+      <p><strong><i class="far fa-clock"></i> Deadline:</strong> <span id="task-deadline">-</span></p>
+      <p><strong><i class="fas fa-tag"></i> Type:</strong> <span id="task-type">-</span></p>
+      <p><strong><i class="fas fa-chart-bar"></i> Difficulty:</strong> <span id="task-difficulty">-</span></p>
+      <p><strong><i class="fas fa-exclamation-circle"></i> Importance:</strong> <span id="task-importance">-</span></p>
     </section>
 
     <!-- Progress Section -->
     <section class="progress-section">
-      <h3>Progress</h3>
-      <div class="progress-bar">
-        <div class="progress" id="task-progress" style="width: 0%;"></div>
-      </div>
-      <p id="progress-text">0% completed</p>
-      
-      <div class="form-group" style="margin-top: 15px;">
-        <label for="progress-input">Update Progress:</label>
-        <input type="range" id="progress-input" min="0" max="100" value="0" style="width: 100%;">
-        <button id="update-progress" class="button" style="margin-top: 10px;">Save Progress</button>
+      <h3><i class="fas fa-tasks"></i> Progress</h3>
+      <div class="progress-container">
+        <div class="progress-bar" id="draggable-progress-bar">
+          <div class="progress" id="task-progress" style="width: 0%;"></div>
+          <div class="progress-handle"></div>
+        </div>
+        <p id="progress-text">0% completed</p>
+        <button id="update-progress" class="button" style="margin-top: 10px;"><i class="fas fa-save"></i> Save Progress</button>
       </div>
     </section>
 
     <!-- Task Description Section -->
     <section class="task-description">
-      <h3>Description</h3>
+      <h3><i class="fas fa-align-left"></i> Description</h3>
       <p id="task-description">Loading description...</p>
     </section>
 
     <!-- AI Suggestions Section -->
     <section class="ai-suggestions">
-      <h3>AI Suggestions</h3>
+      <h3><i class="fas fa-robot"></i> AI Suggestions</h3>
       <p id="ai-suggestion">N/A</p>
     </section>
-
   </div>
 
   <!-- Footer Section -->

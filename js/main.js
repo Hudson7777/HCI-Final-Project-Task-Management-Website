@@ -28,6 +28,21 @@ function scoreTask(task) {
   const score = (10 / (daysUntilDeadline + 1)) + (importanceScore * 3) + (difficultyScore) + progressScore;
   return score;
 }
+
+// Get task icon based on type
+function getTaskIcon(type) {
+  switch (type) {
+    case "study":
+      return '<i class="fas fa-book"></i>';
+    case "work":
+      return '<i class="fas fa-briefcase"></i>';
+    case "personal":
+      return '<i class="fas fa-user"></i>';
+    default:
+      return '<i class="fas fa-tasks"></i>';
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const taskForm = document.getElementById("task-form");
   const taskContainer = document.getElementById("tasks");
@@ -106,6 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Update page title and button text
         document.querySelector("header p").textContent = "Edit Task";
         submitBtn.textContent = "Update Task";
+        submitBtn.innerHTML = '<i class="fas fa-save"></i> Update Task';
 
         // Fill form with existing task data
         document.getElementById("task-title").value = taskToEdit.title;
@@ -183,32 +199,49 @@ document.addEventListener("DOMContentLoaded", () => {
       emptyMsg.textContent = "No tasks yet. Click 'Add New Task' to get started!";
       taskContainer.appendChild(emptyMsg);
     } else {
-      // Sort tasks by deadline (nearest first)
-      // taskList.sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
-
       // Create and append task elements
       taskList.forEach((task, index) => {
         const taskDiv = document.createElement("div");
-        taskDiv.className = "task-item";
+        taskDiv.className = `task-item type-${task.type}`;
 
         // Format deadline
         const deadlineDate = new Date(task.deadline);
-        const formattedDate = deadlineDate.toLocaleDateString();
-        const formattedTime = deadlineDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const year = deadlineDate.getFullYear();
+        const month = String(deadlineDate.getMonth() + 1).padStart(2, '0');
+        const day = String(deadlineDate.getDate()).padStart(2, '0');
+        const hours = deadlineDate.getHours();
+        const minutes = String(deadlineDate.getMinutes()).padStart(2, '0');
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        const formattedHours = String(hours % 12 || 12); // Convert 0 to 12 for 12 AM
+
+        const formattedDate = `${year}-${month}-${day} ${formattedHours}:${minutes} ${ampm}`;
 
         // Get progress value (default to 0)
         const progress = task.progress || 0;
 
-        // Create task HTML
+        // Create task HTML with icon
         taskDiv.innerHTML = `
-          <a href="task-details.html?id=${index}" class="task-title">${task.title}</a>
-          <div>Deadline: ${formattedDate} at ${formattedTime}</div>
-          <div>Type: ${task.type} | Importance: ${task.importance} | Difficulty: ${task.difficulty}</div>
-          <div>${getTimeRemaining(task.deadline)}</div>
-          <div class="progress-bar">
-            <div class="progress" style="width: ${progress}%;"></div>
+          <div class="task-icon">
+            ${getTaskIcon(task.type)}
           </div>
-          <div>${progress}% completed</div>
+          <div class="task-content">
+            <a href="task-details.html?id=${index}" class="task-title">${task.title}</a>
+            <div class="task-details">
+              <span class="task-type-label ${task.type}-label">${task.type}</span>
+              <span><i class="far fa-clock"></i> Deadline: ${formattedDate}</span>
+            </div>
+            <div class="task-details">
+              <span><i class="fas fa-chart-bar"></i> Difficulty: ${task.difficulty}</span> | 
+              <span><i class="fas fa-exclamation-circle"></i> Importance: ${task.importance}</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress" style="width: ${progress}%;"></div>
+            </div>
+            <div class="progress-text">${progress}% completed</div>
+          </div>
+          <div class="task-meta">
+            ${getTimeRemaining(task.deadline)}
+          </div>
         `;
 
         taskContainer.appendChild(taskDiv);
@@ -246,7 +279,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Format deadline
         const deadlineDate = new Date(task.deadline);
-        taskDeadline.textContent = `${deadlineDate.toLocaleDateString()} at ${deadlineDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+        const year = deadlineDate.getFullYear();
+        const month = String(deadlineDate.getMonth() + 1).padStart(2, '0');
+        const day = String(deadlineDate.getDate()).padStart(2, '0');
+        const hours = deadlineDate.getHours();
+        const minutes = String(deadlineDate.getMinutes()).padStart(2, '0');
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        const formattedHours = String(hours % 12 || 12); // Convert 0 to 12 for 12 AM
+
+        const formattedDeadline = `${year}-${month}-${day} ${formattedHours}:${minutes} ${ampm}`;
+
+        // Update deadline display
+        taskDeadline.textContent = formattedDeadline;
 
         // Update other details
         taskType.textContent = task.type;
@@ -254,11 +298,10 @@ document.addEventListener("DOMContentLoaded", () => {
         taskImportance.textContent = task.importance;
         taskDescription.textContent = task.description || 'No description provided.';
 
-        // Set progress
-        const progress = task.progress || 0;
-        taskProgress.style.width = `${progress}%`;
-        progressText.textContent = `${progress}% completed`;
-        progressInput.value = progress;
+        // Color the progress bar according to task type
+        if (taskProgress) {
+          taskProgress.className = `progress ${task.type}-color`;
+        }
 
         // Update edit link
         editTaskLink.href = `add-task.html?edit=${taskId}`;
@@ -266,19 +309,64 @@ document.addEventListener("DOMContentLoaded", () => {
         // Generate and display AI suggestion
         aiSuggestion.textContent = generateSuggestion(task);
 
-        // Handle progress update
-        if (updateProgressBtn) {
+        // Handle draggable progress bar
+        const progressBar = document.getElementById("draggable-progress-bar");
+        if (progressBar && updateProgressBtn) {
+          // Set initial progress
+          const progress = task.progress || 0;
+          taskProgress.style.width = `${progress}%`;
+          progressText.textContent = `${progress}% completed`;
+          
+          let isDragging = false;
+          let currentProgress = progress;
+          
+          // Function to update progress display
+          const updateProgressDisplay = (event) => {
+            // Calculate percentage based on mouse position
+            const rect = progressBar.getBoundingClientRect();
+            let x = event.clientX - rect.left;
+            let percentage = Math.round((x / rect.width) * 100);
+            
+            // Clamp percentage between 0 and 100
+            percentage = Math.max(0, Math.min(100, percentage));
+            
+            // Update the progress bar and text
+            taskProgress.style.width = `${percentage}%`;
+            progressText.textContent = `${percentage}% completed`;
+            
+            // Store the current progress value
+            currentProgress = percentage;
+          };
+          
+          // Mouse down event (start dragging)
+          progressBar.addEventListener("mousedown", (event) => {
+            isDragging = true;
+            updateProgressDisplay(event);
+          });
+          
+          // Mouse move event (update while dragging)
+          document.addEventListener("mousemove", (event) => {
+            if (isDragging) {
+              updateProgressDisplay(event);
+            }
+          });
+          
+          // Mouse up event (stop dragging)
+          document.addEventListener("mouseup", () => {
+            isDragging = false;
+          });
+          
+          // Click event for immediate updates
+          progressBar.addEventListener("click", (event) => {
+            updateProgressDisplay(event);
+          });
+          
+          // Handle save button
           updateProgressBtn.addEventListener("click", () => {
-            const newProgress = parseInt(progressInput.value);
-
-            // Update task progress
-            taskList[taskId].progress = newProgress;
+            // Update task progress in localStorage
+            taskList[taskId].progress = currentProgress;
             localStorage.setItem("tasks", JSON.stringify(taskList));
-
-            // Update display
-            taskProgress.style.width = `${newProgress}%`;
-            progressText.textContent = `${newProgress}% completed`;
-
+            
             alert("Progress updated!");
           });
         }
@@ -287,9 +375,30 @@ document.addEventListener("DOMContentLoaded", () => {
         if (deleteTaskBtn) {
           deleteTaskBtn.addEventListener("click", () => {
             if (confirm("Are you sure you want to delete this task?")) {
-              taskList.splice(taskId, 1);
-              localStorage.setItem("tasks", JSON.stringify(taskList));
-              window.location.href = "index.html";
+              // Get latest task list from localStorage to ensure we have current data
+              const currentTaskList = JSON.parse(localStorage.getItem("tasks") || "[]");
+              
+              // Convert taskId to a number to ensure proper array indexing
+              const taskIndex = parseInt(taskId, 10);
+              
+              // Make sure the index is valid
+              if (taskIndex >= 0 && taskIndex < currentTaskList.length) {
+                // Remove the task at the specified index
+                currentTaskList.splice(taskIndex, 1);
+                
+                // Save the updated list back to localStorage
+                localStorage.setItem("tasks", JSON.stringify(currentTaskList));
+                
+                console.log("Task deleted. Remaining tasks:", currentTaskList.length);
+                
+                // Redirect back to the main page
+                window.location.href = "index.html";
+              } else {
+                // Handle invalid index
+                alert("Error: Task not found!");
+                console.error("Invalid task index:", taskIndex, "List length:", currentTaskList.length);
+                window.location.href = "index.html";
+              }
             }
           });
         }
@@ -304,7 +413,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Click the "Optimize with GPT" button and reorder the tasks
+  // Click the "" button and reorder the tasks
   if (optimizeBtn) {
     optimizeBtn.addEventListener("click", async () => {
       const tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
