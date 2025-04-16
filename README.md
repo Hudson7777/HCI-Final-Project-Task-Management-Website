@@ -45,6 +45,15 @@ This web application provides a user-friendly interface for managing tasks, sett
 
 https://hci-final-project-task-management-website.vercel.app/
 
+| **Before Optimization** | **After Optimization** |
+|-------------|-------------|
+|             |             |              
+|<img width="1151" alt="Screenshot 2025-04-16 at 17 21 13" src="https://github.com/user-attachments/assets/ef319466-7ef8-4175-9ca7-c85f7d35fc22" />
+       |             |  <img width="1157" alt="Screenshot 2025-04-16 at 17 21 30" src="https://github.com/user-attachments/assets/3cdc3438-7dd4-4c7a-9cd2-479d6bdec21b" />
+            
+|             |             |              
+|             |             |             
+
 ## Project Structure
 <img width="602" alt="Screenshot 2025-04-15 at 08 40 50" src="https://github.com/user-attachments/assets/12de86bc-f635-45de-8dbf-db413653cfe9" />
 
