@@ -417,7 +417,37 @@ document.addEventListener("DOMContentLoaded", () => {
   if (optimizeBtn) {
     optimizeBtn.addEventListener("click", async () => {
       const tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
-  
+      let loadingIndicator = document.getElementById("loading-indicator");
+      let statusMessage = document.getElementById("status-message");
+
+      if (!loadingIndicator) {
+        loadingIndicator = document.createElement("div");
+        loadingIndicator.id = "loading-indicator";
+        loadingIndicator.style.color = "#666";
+        loadingIndicator.style.marginTop = "10px";
+        taskContainer.parentElement.insertBefore(loadingIndicator, taskContainer);
+      }
+
+      if (!statusMessage) {
+        statusMessage = document.createElement("div");
+        statusMessage.id = "status-message";
+        statusMessage.style.display = "none";
+        statusMessage.style.marginTop = "10px";
+        statusMessage.style.padding = "10px";
+        statusMessage.style.borderRadius = "5px";
+        statusMessage.style.fontWeight = "bold";
+        taskContainer.parentElement.insertBefore(statusMessage, taskContainer);
+      }
+
+      // ✅ start of the request
+      loadingIndicator.innerHTML = `🔄 Optimizing tasks with GPT... <span class="dot-flash">...</span>`;
+      loadingIndicator.style.display = "block";
+      statusMessage.style.display = "none";
+
+      // ✅disable the optimize button in case errors
+      optimizeBtn.disabled = true;
+      optimizeBtn.style.opacity = 0.6;
+      optimizeBtn.style.cursor = "not-allowed";
       try {
         const response = await fetch("https://hci-final-project-task-management-website.vercel.app/api/optimize-tasks", {
           method: "POST",
@@ -439,35 +469,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
           // modify the refresh logic, to get a more elegant UI effect
           localStorage.setItem("tasks", JSON.stringify(sorted));
-          if (taskContainer) {
-            // add an extra space
-            let loadingIndicator = document.getElementById("loading-indicator");
-            let statusMessage = document.getElementById("status-message");
-
-            if (!loadingIndicator) {
-              loadingIndicator = document.createElement("div");
-              loadingIndicator.id = "loading-indicator";
-              loadingIndicator.style.color = "#666";
-              loadingIndicator.style.marginTop = "10px";
-              optimizeBtn.insertAdjacentElement("afterend", loadingIndicator);
-            }
-
-            if (!statusMessage) {
-              statusMessage = document.createElement("div");
-              statusMessage.id = "status-message";
-              statusMessage.style.display = "none";
-              statusMessage.style.marginTop = "10px";
-              statusMessage.style.padding = "10px";
-              statusMessage.style.borderRadius = "5px";
-              statusMessage.style.fontWeight = "bold";
-              optimizeBtn.insertAdjacentElement("afterend", statusMessage);
-            }
-
-            // show the loading animation
-            loadingIndicator.textContent = "🔄 Optimizing tasks with GPT...";
-            loadingIndicator.style.display = "block";
-            statusMessage.style.display = "none";
-
             if (taskContainer) {
               taskContainer.innerHTML = "<h2>Upcoming Tasks</h2>";
             
@@ -519,21 +520,33 @@ document.addEventListener("DOMContentLoaded", () => {
               statusMessage.style.color = "#155724";
               statusMessage.style.border = "1px solid #c3e6cb";
               statusMessage.style.display = "block";
+
+              optimizeBtn.disabled = false;
+              optimizeBtn.style.opacity = 1;
+              optimizeBtn.style.cursor = "pointer";
             
-              if (!document.getElementById("status-message-inserted")) {
-                statusMessage.id = "status-message-inserted";
-                taskContainer.parentElement.insertBefore(statusMessage, taskContainer);
-              }
+              // taskContainer.parentElement.insertBefore(statusMessage, taskContainer);
             }
-          }
         } else {
           alert("⚠️ AI returned invalid task data. Sorting skipped.");
           console.error("Invalid GPT response:", data);
+          optimizeBtn.disabled = false;
+          optimizeBtn.style.opacity = 1;
+          optimizeBtn.style.cursor = "pointer";
         }
   
       } catch (err) {
         console.error("API error:", err);
-        alert("Failed to sort tasks. Check console for details.");
+        loadingIndicator.style.display = "none";
+        statusMessage.textContent = "❌ Failed to contact GPT.";
+        statusMessage.style.backgroundColor = "#f8d7da";
+        statusMessage.style.color = "#721c24";
+        statusMessage.style.border = "1px solid #f5c6cb";
+        statusMessage.style.display = "block";
+
+        optimizeBtn.disabled = false;
+        optimizeBtn.style.opacity = 1;
+        optimizeBtn.style.cursor = "pointer";
       }
     });
   }
