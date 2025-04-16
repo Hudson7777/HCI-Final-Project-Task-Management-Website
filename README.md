@@ -45,14 +45,11 @@ This web application provides a user-friendly interface for managing tasks, sett
 
 https://hci-final-project-task-management-website.vercel.app/
 
-| **Before Optimization** | **After Optimization** |
-|-------------|-------------|
-|             |             |              
-|<img width="1151" alt="Screenshot 2025-04-16 at 17 21 13" src="https://github.com/user-attachments/assets/ef319466-7ef8-4175-9ca7-c85f7d35fc22" />
-       |             |  <img width="1157" alt="Screenshot 2025-04-16 at 17 21 30" src="https://github.com/user-attachments/assets/3cdc3438-7dd4-4c7a-9cd2-479d6bdec21b" />
-            
-|             |             |              
-|             |             |             
+**Before Optimization**
+<img width="1151" alt="Screenshot 2025-04-16 at 17 21 13" src="https://github.com/user-attachments/assets/a8c2967d-d9ef-4bd7-9de7-2cf7573c714b" />
+
+**After Optimization**
+<img width="1157" alt="Screenshot 2025-04-16 at 17 21 30" src="https://github.com/user-attachments/assets/c9ac8312-2d65-4877-9547-7b74680cad8b" />
 
 ## Project Structure
 <img width="602" alt="Screenshot 2025-04-15 at 08 40 50" src="https://github.com/user-attachments/assets/12de86bc-f635-45de-8dbf-db413653cfe9" />
@@ -89,7 +86,13 @@ Run backend AI optimization:
 2. Real-Time Tracking & Visualization: Integrate live progress updates with interactive dashboards and visual progress bars to offer users instant insights into their workflow.
 3. Enhanced Customization: Allow users to tailor task attributes, set intelligent reminders, and personalize the interface to align with their unique work style and preferences.
 4. Collaborative Workspace: Support team-based task management, enabling shared projects, delegated responsibilities, and real-time collaboration features.
-5. Cross-Platform Accessibility: Deliver a unified user experience through synchronized mobile and web applications, ensuring productivity on the go
+5. Cross-Platform Accessibility: Deliver a unified user experience through synchronized mobile and web applications, ensuring productivity on the go.
+
+## Conclusion
+
+Our project reflects a strong integration of user-centered design principles and classroom concepts, resulting in a task management solution that is both intuitive and functional. By leveraging clean design, consistent navigation, and AI-powered optimization, we created a system that addresses common productivity challenges faced by users. 
+
+The use of personas, usability heuristics, and real-time feedback mechanisms allowed us to continuously refine our design to better meet user needs. Overall, this project has been a valuable opportunity to apply theoretical knowledge in a practical context, reinforcing the importance of thoughtful design and user empathy in building impactful digital experiences.
    
 ## Contributors
 
