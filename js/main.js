@@ -473,27 +473,44 @@ document.addEventListener("DOMContentLoaded", () => {
             
               sorted.forEach((task, index) => {
                 const taskDiv = document.createElement("div");
-                taskDiv.className = "task-item";
-            
+                taskDiv.className = `task-item type-${task.type}`;
+              
                 const deadlineDate = new Date(task.deadline);
-                const formattedDate = deadlineDate.toLocaleDateString();
-                const formattedTime = deadlineDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                const year = deadlineDate.getFullYear();
+                const month = String(deadlineDate.getMonth() + 1).padStart(2, '0');
+                const day = String(deadlineDate.getDate()).padStart(2, '0');
+                const hours = deadlineDate.getHours();
+                const minutes = String(deadlineDate.getMinutes()).padStart(2, '0');
+                const ampm = hours >= 12 ? 'PM' : 'AM';
+                const formattedHours = String(hours % 12 || 12);
+                const formattedDate = `${year}-${month}-${day} ${formattedHours}:${minutes} ${ampm}`;
                 const progress = task.progress || 0;
-            
-                // remain the same structure
+              
+                const iconHTML = getTaskIcon(task.type);
+              
                 taskDiv.innerHTML = `
-                  <a href="task-details.html?id=${index}" class="task-title">${task.title}</a>
-                  <div>Deadline: ${formattedDate} at ${formattedTime}</div>
-                  <div>Type: ${task.type} | Importance: ${task.importance} | Difficulty: ${task.difficulty}</div>
-                  <div>${getTimeRemaining(task.deadline)}</div>
-                  <div class="progress-bar">
-                    <div class="progress" style="width: ${progress}%;"></div>
+                  <div class="task-icon">${iconHTML}</div>
+                  <div class="task-content">
+                    <a href="task-details.html?id=${index}" class="task-title">${task.title}</a>
+                    <div class="task-details">
+                      <span class="task-type-label ${task.type}-label">${task.type}</span>
+                      <span><i class="far fa-clock"></i> Deadline: ${formattedDate}</span>
+                    </div>
+                    <div class="task-details">
+                      <span><i class="fas fa-chart-bar"></i> Difficulty: ${task.difficulty}</span> | 
+                      <span><i class="fas fa-exclamation-circle"></i> Importance: ${task.importance}</span>
+                    </div>
+                    <div class="progress-bar">
+                      <div class="progress" style="width: ${progress}%;"></div>
+                    </div>
+                    <div class="progress-text">${progress}% completed</div>
                   </div>
-                  <div>${progress}% completed</div>
+                  <div class="task-meta">${getTimeRemaining(task.deadline)}</div>
                 `;
-            
+              
                 taskContainer.appendChild(taskDiv);
               });
+              
             
               // ✅ change the location of progress bar
               loadingIndicator.style.display = "none";
