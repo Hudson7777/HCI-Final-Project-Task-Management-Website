@@ -41,18 +41,18 @@ This web application provides a user-friendly interface for managing tasks, sett
 - Control: All actions user‑initiated
 - Memory: Logical grouping of form fields
 
-## Demo
-
-https://hci-final-project-task-management-website.vercel.app/
-
-**Before Optimization**
-<img width="1151" alt="Screenshot 2025-04-16 at 17 21 13" src="https://github.com/user-attachments/assets/a8c2967d-d9ef-4bd7-9de7-2cf7573c714b" />
-
-**After Optimization**
-<img width="1157" alt="Screenshot 2025-04-16 at 17 21 30" src="https://github.com/user-attachments/assets/c9ac8312-2d65-4877-9547-7b74680cad8b" />
-
 ## Project Structure
 <img width="602" alt="Screenshot 2025-04-15 at 08 40 50" src="https://github.com/user-attachments/assets/12de86bc-f635-45de-8dbf-db413653cfe9" />
+
+## Demo
+
+Project Link: https://hci-final-project-task-management-website.vercel.app/
+
+| **Before Optimization** | **After Optimization** |
+|-------------|-------------|
+| <img width="500" alt="Screenshot 2025-04-16 at 17 21 13" src="https://github.com/user-attachments/assets/a8c2967d-d9ef-4bd7-9de7-2cf7573c714b" /> | <img width="500" alt="Screenshot 2025-04-16 at 17 21 30" src="https://github.com/user-attachments/assets/c9ac8312-2d65-4877-9547-7b74680cad8b" /> |
+
+
 
 ## Setup Instructions
 
@@ -73,12 +73,6 @@ Run using static server
 
 Run backend AI optimization:
 - node optimize-tasks.js
-
-## References
-
-- OpenAI API Documentation
-- Nielsen's Usability Heuristics
-- React Docs
   
 ## Future Improvements
 
@@ -93,6 +87,12 @@ Run backend AI optimization:
 Our project reflects a strong integration of user-centered design principles and classroom concepts, resulting in a task management solution that is both intuitive and functional. By leveraging clean design, consistent navigation, and AI-powered optimization, we created a system that addresses common productivity challenges faced by users. 
 
 The use of personas, usability heuristics, and real-time feedback mechanisms allowed us to continuously refine our design to better meet user needs. Overall, this project has been a valuable opportunity to apply theoretical knowledge in a practical context, reinforcing the importance of thoughtful design and user empathy in building impactful digital experiences.
+
+## References
+
+- OpenAI API Documentation
+- Nielsen's Usability Heuristics
+- React Docs
    
 ## Contributors
 
