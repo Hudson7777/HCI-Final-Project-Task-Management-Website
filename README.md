@@ -25,8 +25,8 @@ This web application provides a user-friendly interface for managing tasks, sett
 |-------------------------------------|----------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
 | Difficulty in Task Prioritization** | - 60% of users struggle to rank tasks manually.  <br> - Most users rely on deadlines and difficulty, but AI could help.    | Introduce AI-based task ranking** incorporating deadlines, complexity, and personal interests.                                            |
 | Need for Better Task Visualization** | - Users wanted a clearer way to track progress: <br> → Progress bars <br> → Color-coded categories for organization       | Implement visual task status indicators** to improve usability and progress tracking.                                                     |
-| Smart Reminders and Analytics**    | - Users want tools to predict task completion** and suggest improvements.                                                | ✅ Integrate smart notifications** and data-driven insights** to support better decision making.                                          |
-| Complexity of Existing Tools**     | - Some users stopped using task managers due to feature overload** and a high learning curve**.                        | ✅ Offer simple and advanced modes** to accommodate users with different needs and experience levels.                                        |
+| Smart Reminders and Analytics**    | - Users want tools to predict task completion** and suggest improvements.                                                | Integrate smart notifications** and data-driven insights** to support better decision making.                                          |
+| Complexity of Existing Tools**     | - Some users stopped using task managers due to feature overload** and a high learning curve**.                        |  Offer simple and advanced modes** to accommodate users with different needs and experience levels.                                        |
 
 ---
 
@@ -76,10 +76,11 @@ Run backend AI optimization:
   
 ## Future Improvements
 
-1. Mobile App Integration
-2. Voice-based Task Input
-3. Team Collaboration Features
-4. Calendar View
+1. AI-Powered Prioritization & Optimization: Leverage artificial intelligence to intelligently rank tasks based on urgency, complexity, and user behavior, enabling dynamic and adaptive scheduling.
+2. Real-Time Tracking & Visualization: Integrate live progress updates with interactive dashboards and visual progress bars to offer users instant insights into their workflow.
+3. Enhanced Customization: Allow users to tailor task attributes, set intelligent reminders, and personalize the interface to align with their unique work style and preferences.
+4. Collaborative Workspace: Support team-based task management, enabling shared projects, delegated responsibilities, and real-time collaboration features.
+5. Cross-Platform Accessibility: Deliver a unified user experience through synchronized mobile and web applications, ensuring productivity on the go
    
 ## Contributors
 
