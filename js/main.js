@@ -469,16 +469,18 @@ document.addEventListener("DOMContentLoaded", () => {
             statusMessage.style.display = "none";
 
             if (taskContainer) {
-              taskContainer.innerHTML = "<h2>Upcoming Tasks</h2>"; 
-
+              taskContainer.innerHTML = "<h2>Upcoming Tasks</h2>";
+            
               sorted.forEach((task, index) => {
+                const taskDiv = document.createElement("div");
+                taskDiv.className = "task-item";
+            
                 const deadlineDate = new Date(task.deadline);
                 const formattedDate = deadlineDate.toLocaleDateString();
                 const formattedTime = deadlineDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
                 const progress = task.progress || 0;
-
-                const taskDiv = document.createElement("div");
-                taskDiv.className = "task-item";
+            
+                // remain the same structure
                 taskDiv.innerHTML = `
                   <a href="task-details.html?id=${index}" class="task-title">${task.title}</a>
                   <div>Deadline: ${formattedDate} at ${formattedTime}</div>
@@ -489,17 +491,22 @@ document.addEventListener("DOMContentLoaded", () => {
                   </div>
                   <div>${progress}% completed</div>
                 `;
-
+            
                 taskContainer.appendChild(taskDiv);
               });
-
-              // show a green button for successful loading
+            
+              // ✅ change the location of progress bar
               loadingIndicator.style.display = "none";
               statusMessage.textContent = "✅ Tasks sorted by GPT!";
               statusMessage.style.backgroundColor = "#d4edda";
               statusMessage.style.color = "#155724";
               statusMessage.style.border = "1px solid #c3e6cb";
               statusMessage.style.display = "block";
+            
+              if (!document.getElementById("status-message-inserted")) {
+                statusMessage.id = "status-message-inserted";
+                taskContainer.parentElement.insertBefore(statusMessage, taskContainer);
+              }
             }
           }
         } else {
