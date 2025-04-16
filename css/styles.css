@@ -96,6 +96,13 @@ h2 {
   background-color: #1b5fa7;
 }
 
+/* Brain icon button for optimization */
+.button#optimize {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
 /* Action Buttons Container */
 .action-buttons {
   text-align: center;
@@ -108,33 +115,150 @@ h2 {
 
 /* Tasks Section */
 .task-item {
-  padding: 15px 0;
-  border-bottom: 1px solid #ddd;
-  margin-bottom: 15px;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  display: flex;
+  flex-wrap: wrap;
 }
 
-.task-item:last-child {
-  border-bottom: none;
+.task-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  margin-right: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: white;
+}
+
+.task-content {
+  flex: 1;
+}
+
+.task-meta {
+  text-align: right;
+  margin-left: 10px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* Task type styles */
+.task-type-label {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  margin-right: 5px;
+  color: white;
+}
+
+/* Study type */
+.type-study .task-icon {
+  background-color: #4086f4;
+}
+.type-study .task-title {
+  color: #4086f4;
+}
+.study-label {
+  background-color: #4086f4;
+}
+
+/* Work type */
+.type-work .task-icon {
+  background-color: #34a853;
+}
+.type-work .task-title {
+  color: #34a853;
+}
+.work-label {
+  background-color: #34a853;
+}
+
+/* Personal type */
+.type-personal .task-icon {
+  background-color: #ff9800;
+}
+.type-personal .task-title {
+  color: #ff9800;
+}
+.personal-label {
+  background-color: #ff9800;
 }
 
 .task-title {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: bold;
   margin-bottom: 5px;
+  text-decoration: none;
+  display: block;
+}
+
+.task-details {
+  margin: 8px 0;
+  font-size: 0.9rem;
+  color: #666;
 }
 
 .progress-bar {
   background-color: #eee;
   border-radius: 5px;
   overflow: hidden;
-  height: 20px;
-  margin-top: 5px;
+  height: 12px;
+  margin: 8px 0;
+  width: 100%;
 }
 
 .progress {
   height: 100%;
   background-color: #2d89ef;
   width: 0%;
+}
+
+.type-study .progress {
+  background-color: #4086f4;
+}
+.type-work .progress {
+  background-color: #34a853;
+}
+.type-personal .progress {
+  background-color: #ff9800;
+}
+
+.progress-text {
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 4px;
+}
+
+/* Draggable progress bar */
+.progress-container {
+  margin: 15px 0;
+}
+
+#draggable-progress-bar {
+  position: relative;
+  cursor: pointer;
+}
+
+.progress-handle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 10px;
+  height: 100%;
+  background-color: #1b5fa7;
+  border-radius: 0 5px 5px 0;
+  cursor: grab;
+  display: none;
+}
+
+#draggable-progress-bar:hover .progress-handle {
+  display: block;
 }
 
 footer {
@@ -149,4 +273,50 @@ footer {
   .form-flex {
     flex-direction: column;
   }
+  
+  .task-item {
+    flex-direction: column;
+  }
+  
+  .task-icon {
+    margin-bottom: 10px;
+  }
+  
+  .task-meta {
+    text-align: left;
+    margin-left: 0;
+    margin-top: 10px;
+  }
+}
+
+/* Task details page */
+.task-details-container {
+  padding: 20px;
+}
+
+.task-info {
+  margin-bottom: 25px;
+}
+
+.task-info h2 {
+  border-bottom: 2px solid #2d89ef;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.task-info p {
+  margin-bottom: 10px;
+}
+
+.progress-section,
+.task-description,
+.ai-suggestions {
+  margin-bottom: 25px;
+}
+
+.progress-section h3,
+.task-description h3,
+.ai-suggestions h3 {
+  margin-bottom: 10px;
+  color: #2d89ef;
 }
